@@ -8,21 +8,9 @@
         "location": {
             "type": "string"
         },
-        "workflowSchema": {
-            "type": "string",
-            "defaultValue": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#"
-        },
         "logicAppState": {
             "type": "string",
             "defaultValue": "Enabled"
-        },
-        "definition": {
-            "type": "string",
-            "defaultValue": "[concat('{\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"actions\":{},\"triggers\":{},\"outputs\":{},\"$schema\":\"', parameters('workflowSchema'), '\"}')]"
-        },
-        "parameters": {
-            "type": "object",
-            "defaultValue": {}
         }
     },
     "resources": [
@@ -35,8 +23,8 @@
                 "env": "dev"
             },
             "properties": {
-                "definition": "[json(parameters('definition'))]",
-                "parameters": "[parameters('parameters')]",
+                "definition": {"$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#"},
+                
                 "state": "[parameters('logicAppState')]"
             }
         }
