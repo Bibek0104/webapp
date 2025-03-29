@@ -44,6 +44,6 @@ jobs:
           body: 'Workflow for resource deployment completed successfully!'
           to: 'bibekbarik81@outlook.com'
           from: 'bibekbarik81@gmail.com'
-          secure: true
+          secure: false
 
 
