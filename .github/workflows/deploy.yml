@@ -1,20 +1,28 @@
-on: [push]
-  name: Azure ARM
-  jobs:
-    build-and-deploy:
-      runs-on: ubuntu-latest
-      steps:
+name: Azure ARM
 
-        # Checkout code
-      - uses: actions/checkout@master
+on:
+  push:      
+     branches:
+      - master
 
-        # Log into Azure
-      - uses: azure/login@v1
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Log into Azure
+      - name: Azure Login
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        # Deploy ARM template
+      # Deploy ARM template
       - name: Run ARM deploy
+        id: deploy
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
@@ -22,5 +30,3 @@ on: [push]
           template: ./azuredeploy.json
           parameters: storageAccountType=Standard_LRS
 
-        # output containerName variable from template
-      - run: echo ${{ steps.deploy.outputs.containerName }}
