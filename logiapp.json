@@ -1,0 +1,47 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "logicAppApiVersion": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "workflowSchema": {
+            "type": "string",
+            "defaultValue": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#"
+        },
+        "logicAppState": {
+            "type": "string",
+            "defaultValue": "Enabled"
+        },
+        "definition": {
+            "type": "string",
+            "defaultValue": "[concat('{\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"actions\":{},\"triggers\":{},\"outputs\":{},\"$schema\":\"', parameters('workflowSchema'), '\"}')]"
+        },
+        "parameters": {
+            "type": "object",
+            "defaultValue": {}
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('name')]",
+            "type": "Microsoft.Logic/workflows",
+            "location": "[parameters('location')]",
+            "tags": {
+                "env": "dev"
+            },
+            "properties": {
+                "definition": "[json(parameters('definition'))]",
+                "parameters": "[parameters('parameters')]",
+                "state": "[parameters('logicAppState')]"
+            }
+        }
+    ]
+}

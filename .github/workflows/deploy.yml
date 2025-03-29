@@ -27,6 +27,9 @@ jobs:
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./stg.json
-          parameters: storageName=stgfortest1992
+          template: ./logicapp.json
+          parameters: 
+              name=logicapp019923, 
+              location=northeurope
+
 
