@@ -29,7 +29,7 @@ jobs:
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./logiapp.json
           parameters: 
-              name=logicapp019923, 
+              name=logicapp019923
               location=northeurope
 
 
